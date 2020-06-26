@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+$mobile: 930px;
+@mixin mobile {
+  @media (max-width:#{$mobile}) {
+    @content;
+  }
+}
+$desktop: 1600px;
+@mixin desktop {
+  @media (min-width:#{$desktop}) {
+    @content;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  position: relative;
+  background-color: #dce5e9;
+
+  .title {
+    background-color: #363a3e;
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    @include mobile {
+      align-items: flex-start;
+    }
+    h1 {
+      margin-left: 2rem;
+      font-size: 40px;
+      color: white;
+      line-height: 47px;
+      @include mobile {
+        font-size: 28px;
+      }
+    }
+  }
+  header {
+    background-color: #363a3e;
+    padding-top: 1rem;
+  }
+}
+.converter {
+  position: absolute;
+  background-color: #fff;
+  top: 14rem;
+  width: 80%;
+  display: flex;
+  height: 10rem;
+  margin-left: 3rem;
+  align-items: center;
+  border-radius: 15px;
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.2);
+  @include mobile {
+    height: 28rem;
+    justify-content: space-around;
+
+    margin-left: 1.5rem;
+  }
+  @include desktop {
+    top: 18rem;
+  }
+  form {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    @include mobile {
+      flex-direction: column;
+      height: 26rem;
+    }
+  }
+
+  input,
+  select {
+    border: 0;
+    background-color: rgba(54, 58, 62, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    width: 11rem;
+
+    &:focus {
+      border-bottom: 1px solid #363a3e;
+    }
+  }
+  .selectGroup {
+    display: flex;
+    flex-direction: column;
+    @include mobile {
+      align-items: center;
+    }
+    label {
+      margin: 1rem;
+      font-weight: bold;
+    }
+  }
+  button {
+    border: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #ff4f54;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 9rem;
+    align-self: flex-end;
+    @include mobile {
+      align-self: inherit;
+    }
+  }
+  img {
+    width: 2rem;
+    height: 2rem;
+    align-self: flex-end;
+    @include mobile {
+      align-self: inherit;
+    }
+  }
+}
+.story {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 14%;
+  right: 1rem;
+  top: 22rem;
+  @include mobile {
+    width: 51%;
+    right: 10rem;
+    top: 43rem;
+    padding-bottom: 3rem;
+  }
+  @include desktop {
+    width: 10%;
+    right: 1.5rem;
+
+    top: 26rem;
+  }
+  a {
+    text-decoration: none;
+  }
+  img {
+    width: 0.7rem;
+  }
+}
