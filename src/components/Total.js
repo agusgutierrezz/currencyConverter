@@ -2,6 +2,7 @@ import React from "react";
 
 function Total(props) {
   const { amount, toCurrency, fromCurrency, fromAmount } = props;
+
   return (
     <div>
       <p>

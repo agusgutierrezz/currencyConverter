@@ -11,60 +11,68 @@ function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
   const [fromCurrency, setFromCurrency] = useState();
   const [toCurrency, setToCurrency] = useState();
+
   const [exchangeRate, setExachangeRate] = useState();
   const [sendSubmit, setSendSubmit] = useState(false);
-  const [amount, setAmount] = useState(1);
+  const [sendReverse, setReverse] = useState(false);
+  const [amount, setAmount] = useState(1.0);
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
   let toAmount, fromAmount;
+
   if (amountInFromCurrency) {
     fromAmount = amount;
     toAmount = amount * exchangeRate;
-  } else {
-    toAmount = amount;
-    fromAmount = amount / exchangeRate;
   }
 
   useEffect(() => {
     fetch(BASE_URL)
       .then((res) => res.json())
       .then((data) => {
-        const firstCurrency = currencyOptions[2];
+        const firstCurrency = Object.keys(data.rates)[17];
         setCurrencyOptions([data.base, ...Object.keys(data.rates)]);
         setFromCurrency(data.base);
         setToCurrency(firstCurrency);
         setExachangeRate(data.rates[firstCurrency]);
-        console.log(firstCurrency);
       });
   }, []);
-  useEffect(() => {
-    if (
-      fromCurrency != null &&
-      toCurrency != null &&
-      fromCurrency != toCurrency
-    ) {
+
+  useEffect(() => {}, [sendSubmit]);
+  function calculateAmount() {
+    if (fromCurrency === toCurrency) {
+      setExachangeRate(1);
+    } else if (fromCurrency != null && toCurrency != null) {
       fetch(`${BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`)
         .then((res) => res.json())
-        .then((data) => setExachangeRate(data.rates[toCurrency]));
+        .then((data) => {
+          setExachangeRate(data.rates[toCurrency]);
+          console.log(data);
+        });
     }
-  }, [sendSubmit]);
+  }
   function handleFromAmountChange(e) {
     setAmount(e.target.value);
-    setAmountInFromCurrency(true);
-  }
-
-  function handleToAmountChange(e) {
-    setAmount(e.target.value);
-    setAmountInFromCurrency(false);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    calculateAmount();
     setSendSubmit(true);
   }
   function handleReverse() {
+    setSendSubmit(false);
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
+    calculateAmount();
+
+    setReverse(!sendReverse);
+  }
+  function onChangeFromCurrency(e) {
+    setFromCurrency(e.target.value);
+    setSendSubmit(false);
+  }
+  function onChangeToCurrency(e) {
+    setToCurrency(e.target.value);
+    setSendSubmit(false);
   }
   return (
     <div className="App">
@@ -79,8 +87,8 @@ function App() {
           currencyOptions={Filter(currencyOptions)}
           selectFromCurrency={fromCurrency}
           selectToCurrency={toCurrency}
-          onChangeFromCurrency={(e) => setFromCurrency(e.target.value)}
-          onChangeToCurrency={(e) => setToCurrency(e.target.value)}
+          onChangeFromCurrency={onChangeFromCurrency}
+          onChangeToCurrency={onChangeToCurrency}
           onChangeAmount={handleFromAmountChange}
           fromAmount={fromAmount}
           handleSubmit={handleSubmit}
