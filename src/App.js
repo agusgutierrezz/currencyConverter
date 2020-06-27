@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CurrencySelect from "./components/CurrencySelect";
 import Total from "./components/Total";
+import Record from "./components/Record";
 import logo from "./logo.PNG";
 import next from "./next.png";
 import "./App.scss";
@@ -10,6 +11,8 @@ const BASE_URL = "https://api.exchangeratesapi.io/latest";
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
+  const [record, setRecord] = useState(false);
+  const [active, setActive] = useState(true);
   const [fromCurrency, setFromCurrency] = useState();
   const [toCurrency, setToCurrency] = useState();
   const [exchangeRate, setExachangeRate] = useState();
@@ -23,7 +26,6 @@ function App() {
     fromAmount = amount;
     toAmount = amount * exchangeRate;
   }
-
   useEffect(() => {
     fetch(BASE_URL)
       .then((res) => res.json())
@@ -44,7 +46,6 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           setExachangeRate(data.rates[toCurrency]);
-          console.log(data);
         });
     }
   }
@@ -63,7 +64,6 @@ function App() {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
     CalculateAmount();
-
     setReverse(!sendReverse);
   }
   function onChangeFromCurrency(e) {
@@ -74,40 +74,55 @@ function App() {
     setToCurrency(e.target.value);
     setSendSubmit(false);
   }
+  function handleRecord() {
+    setActive(false);
+    setRecord(true);
+  }
+  function handleBack() {
+    setRecord(false);
+    setActive(true);
+    setSendSubmit(false);
+    setAmount(1);
+  }
   return (
     <div className="App">
       <header>
         <img src={logo} alt="logo" />
       </header>
-      <div className="title">
-        <h1>Convert currencies in real-time.</h1>
-      </div>
-      <div>
-        <CurrencySelect
-          currencyOptions={Filter(currencyOptions)}
-          selectFromCurrency={fromCurrency}
-          selectToCurrency={toCurrency}
-          onChangeFromCurrency={onChangeFromCurrency}
-          onChangeToCurrency={onChangeToCurrency}
-          onChangeAmount={handleFromAmountChange}
-          fromAmount={fromAmount}
-          handleSubmit={handleSubmit}
-          handleReverse={handleReverse}
-        />
-      </div>
-      <div className="story">
-        <a> View conversion story </a>
-        <img src={next} />
-      </div>
+      {active && (
+        <>
+          <div className="title">
+            <h1>Convert currencies in real-time.</h1>
+          </div>
+          <div>
+            <CurrencySelect
+              currencyOptions={Filter(currencyOptions)}
+              selectFromCurrency={fromCurrency}
+              selectToCurrency={toCurrency}
+              onChangeFromCurrency={onChangeFromCurrency}
+              onChangeToCurrency={onChangeToCurrency}
+              onChangeAmount={handleFromAmountChange}
+              fromAmount={fromAmount}
+              handleSubmit={handleSubmit}
+              handleReverse={handleReverse}
+            />
+          </div>
+          <div className="story">
+            <a onClick={handleRecord}> View conversion story </a>
+            <img src={next} />
+          </div>
 
-      {sendSubmit && (
-        <Total
-          amount={toAmount}
-          toCurrency={toCurrency}
-          fromCurrency={fromCurrency}
-          fromAmount={fromAmount}
-        />
+          {sendSubmit && (
+            <Total
+              amount={toAmount}
+              toCurrency={toCurrency}
+              fromCurrency={fromCurrency}
+              fromAmount={fromAmount}
+            />
+          )}
+        </>
       )}
+      {record && <Record handleBack={handleBack} />}
     </div>
   );
 }

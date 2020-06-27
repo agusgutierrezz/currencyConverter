@@ -18,7 +18,7 @@ body {
   height: 100vh;
   font-family: "Roboto", sans-serif;
   position: relative;
-  background-color: #dce5e9;
+  background-color: #eef4f7;
 
   .title {
     background-color: #363a3e;
@@ -85,7 +85,7 @@ body {
   input,
   select {
     border: 0;
-    background-color: rgba(54, 58, 62, 0.2);
+    background-color: rgba(54, 58, 62, 0.08);
     border-radius: 8px;
     padding: 1rem;
     width: 11rem;
@@ -160,6 +160,9 @@ body {
   }
   a {
     text-decoration: none;
+    &:hover {
+      color: #ff4f54;
+    }
   }
   img {
     width: 0.7rem;
@@ -180,6 +183,61 @@ body {
     font-size: 2rem;
     @include mobile {
       font-size: 1rem;
+    }
+  }
+}
+.record {
+  padding-top: 2rem;
+  height: 95vh;
+  background-color: #363a3e;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  align-items: center;
+  width: 100%;
+  @include mobile {
+    font-size: 1rem;
+  }
+  .th,
+  .row {
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .th {
+    color: white;
+    font-size: 1rem;
+    font-weight: lighter;
+  }
+  .row {
+    background-color: white;
+    height: 3rem;
+    border-radius: 8px;
+  }
+  .column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .back {
+    align-self: flex-start;
+    margin-left: 1rem;
+    width: 20%;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  button {
+    border: 0;
+    background-color: transparent;
+    color: #fff;
+    &:hover {
+      color: #ff4f54;
     }
   }
 }

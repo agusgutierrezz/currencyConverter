@@ -12,7 +12,7 @@ function CurrencySelect(props) {
     handleSubmit,
     handleReverse,
   } = props;
-  console.log("esta es la toCurency actual", selectToCurrency);
+
   return (
     <div className="converter">
       <form onSubmit={(e) => handleSubmit(e)}>
