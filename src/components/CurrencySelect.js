@@ -1,6 +1,6 @@
 import React from "react";
 import change from "../repeat.png";
-function CurrencyRow(props) {
+function CurrencySelect(props) {
   const {
     currencyOptions,
     selectFromCurrency,
@@ -50,4 +50,4 @@ function CurrencyRow(props) {
   );
 }
 
-export default CurrencyRow;
+export default CurrencySelect;

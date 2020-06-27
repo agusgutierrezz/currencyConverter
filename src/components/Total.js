@@ -4,9 +4,13 @@ function Total(props) {
   const { amount, toCurrency, fromCurrency, fromAmount } = props;
 
   return (
-    <div>
+    <div className="total">
+      <p className="current">
+        {fromAmount} {fromCurrency} =
+      </p>
+
       <p>
-        {fromAmount} {fromCurrency} = {amount}
+        {amount}
         {toCurrency}
       </p>
     </div>

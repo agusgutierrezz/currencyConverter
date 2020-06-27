@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import CurrencyRow from "./components/CurrencyRow";
+import CurrencySelect from "./components/CurrencySelect";
 import Total from "./components/Total";
 import logo from "./logo.PNG";
 import next from "./next.png";
 import "./App.scss";
 import { Filter } from "./helpers";
+
 const BASE_URL = "https://api.exchangeratesapi.io/latest";
 
 function App() {
   const [currencyOptions, setCurrencyOptions] = useState([]);
   const [fromCurrency, setFromCurrency] = useState();
   const [toCurrency, setToCurrency] = useState();
-
   const [exchangeRate, setExachangeRate] = useState();
   const [sendSubmit, setSendSubmit] = useState(false);
   const [sendReverse, setReverse] = useState(false);
@@ -36,8 +36,7 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {}, [sendSubmit]);
-  function calculateAmount() {
+  function CalculateAmount() {
     if (fromCurrency === toCurrency) {
       setExachangeRate(1);
     } else if (fromCurrency != null && toCurrency != null) {
@@ -51,18 +50,19 @@ function App() {
   }
   function handleFromAmountChange(e) {
     setAmount(e.target.value);
+    setSendSubmit(false);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    calculateAmount();
+    CalculateAmount();
     setSendSubmit(true);
   }
   function handleReverse() {
     setSendSubmit(false);
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
-    calculateAmount();
+    CalculateAmount();
 
     setReverse(!sendReverse);
   }
@@ -83,7 +83,7 @@ function App() {
         <h1>Convert currencies in real-time.</h1>
       </div>
       <div>
-        <CurrencyRow
+        <CurrencySelect
           currencyOptions={Filter(currencyOptions)}
           selectFromCurrency={fromCurrency}
           selectToCurrency={toCurrency}
@@ -99,16 +99,15 @@ function App() {
         <a> View conversion story </a>
         <img src={next} />
       </div>
-      <div className="total">
-        {sendSubmit && (
-          <Total
-            amount={toAmount}
-            toCurrency={toCurrency}
-            fromCurrency={fromCurrency}
-            fromAmount={fromAmount}
-          />
-        )}
-      </div>
+
+      {sendSubmit && (
+        <Total
+          amount={toAmount}
+          toCurrency={toCurrency}
+          fromCurrency={fromCurrency}
+          fromAmount={fromAmount}
+        />
+      )}
     </div>
   );
 }
