@@ -15,9 +15,9 @@ You can see this app in all devices!
 
 ## Preview
 
-![screenshot](https://imgur.com/iZ39GZ4)
-![screenshot](https://imgur.com/gKpNyu2)
-![screenshot](https://imgur.com/v1inH5k)
-![screenshot](https://imgur.com/Tt4t9Un)
+<img src="https://imgur.com/iZ39GZ4" alt="Homepage cover image">
+<img src="https://imgur.com/gKpNyu2" alt="Homepage cover image">
+<img src="https://imgur.com/v1inH5k" alt="Homepage cover image">
+<img src="https://imgur.com/Tt4t9Un" alt="Homepage cover image">
 
 #### Thanks :green_heart:
