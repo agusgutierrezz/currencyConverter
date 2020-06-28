@@ -25,6 +25,5 @@ export function HandlerDate(string) {
   var newString = string.split("T")[0];
   var array = newString.split("-");
   var month = array[1].split("0")[Number([1])];
-
   return months[month - 1] + " " + array[2] + ", " + array[0];
 }
