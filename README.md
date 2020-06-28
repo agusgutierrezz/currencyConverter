@@ -1,6 +1,6 @@
 # Currency Converter
 
-This project is part of a coding challenge. Currency converter app developed with the **MERN** stack (MongoDB, ExpressJS, React, Node )
+Currency converter app developed with the **MERN** stack (MongoDB, ExpressJS, React, Node )
 
 ## Installation
 
@@ -15,9 +15,9 @@ You can see this app in all devices!
 
 ## Preview
 
-![scrrenshot](https://ibb.co/N6FXQsx)
-![scrrenshot](https://ibb.co/7vXztFL)
-![scrrenshot](https://ibb.co/ZzHdBC6)
-![scrrenshot](https://ibb.co/WzrC9WW)
+![screenshot](https://imgur.com/iZ39GZ4)
+![screenshot](https://imgur.com/gKpNyu2)
+![screenshot](https://imgur.com/v1inH5k)
+![screenshot](https://imgur.com/Tt4t9Un)
 
 #### Thanks :green_heart:
