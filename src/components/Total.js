@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 function Total(props) {
   const { amount, toCurrency, fromCurrency, fromAmount } = props;
-  var object = {
-    amount: amount,
-    timestamp: new Date().getTime(),
-    toCurrency: toCurrency,
-    fromCurrency: fromCurrency,
-    fromAmount: fromAmount,
-  };
+
   useEffect(() => {
-    localStorage.setItem("toCurrency", toCurrency);
-    localStorage.setItem("fromCurrency", fromCurrency);
-    localStorage.setItem("fromAmount", fromAmount);
-    localStorage.setItem("key", JSON.stringify(object));
+    const newConverter = {
+      toCurrency: toCurrency,
+      toAmount: amount,
+      fromCurrency: fromCurrency,
+      fromAmount: fromAmount,
+    };
+
+    axios
+      .post("http://localhost:4000/converter/add", newConverter)
+      .then((res) => console.log(res.data));
   }, []);
   return (
     <div className="total">

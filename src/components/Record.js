@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from "react";
 import back from "../back.png";
-
+import axios from "axios";
+import { HandlerDate } from "../helpers";
 function Record(props) {
   const { handleBack } = props;
-  const data = JSON.parse(localStorage.getItem("key"));
-  const [value, setValue] = useState();
-  const [date, setDate] = useState();
-  var d = new Date(data.timestamp);
-  var months = [
-    "Jan",
-    "Feb",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  var month = months[d.getMonth()];
-  var dateOfUse = month + " " + d.getDate() + "," + " " + d.getFullYear();
+  const [converter, setConverter] = useState([]);
   useEffect(() => {
-    setDate(dateOfUse);
+    axios
+      .get("http://localhost:4000/converter/")
+      .then((response) => {
+        setConverter(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
-
+  const fechas = converter.map((el) => el.createdAt);
+  console.log(HandlerDate("2020-06-28T10:07:09.910Z"));
   return (
     <div className="record">
       <div className="back">
@@ -38,17 +28,19 @@ function Record(props) {
         <p>From</p>
         <p>To</p>
       </div>
-      <div className="row">
-        <div className="column">{date}</div>
-        <div className="column">
-          {data.fromAmount}
-          {data.fromCurrency}
+      {converter.map((el) => (
+        <div key={el._id} className="row">
+          <div className="column">{HandlerDate(el.createdAt)}</div>
+          <div className="column">
+            {el.fromAmount}
+            {el.fromCurrency}
+          </div>
+          <div className="column">
+            {el.toAmount}
+            {el.toCurrency}
+          </div>
         </div>
-        <div className="column">
-          {data.amount}
-          {data.toCurrency}
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
